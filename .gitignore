@@ -1,5 +1,22 @@
+# Visual Studio files
+*.suo
+*.user
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.csproj
+*.csproj.user
+*.pdb
+
+# NuGet
+packages/
+*.nupkg
+*.snupkg
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
 bin/
 obj/
-/packages/
-riderModule.iml
-/_ReSharper.Caches/
