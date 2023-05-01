@@ -17,6 +17,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Peticom.Repository\Peticom.Repository.csproj" />
+      <ProjectReference Include="..\Peticom.Service\Peticom.Service.csproj" />
     </ItemGroup>
 
     <ItemGroup>
