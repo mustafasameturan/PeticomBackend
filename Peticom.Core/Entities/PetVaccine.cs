@@ -6,4 +6,5 @@ public class PetVaccine : BaseEntity
     public string Name { get; set; }
     public DateTime VaccineDate { get; set; }
     public int Period { get; set; }
+    public PetIdentity PetIdentity { get; set; }
 }
