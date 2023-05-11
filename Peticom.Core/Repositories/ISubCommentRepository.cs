@@ -1,6 +1,7 @@
+using Core.Entities;
+
 namespace Core.Repositories;
 
-public class SubCommentRepository
+public interface ISubCommentRepository : IGenericRepository<SubComment>
 {
-    
 }

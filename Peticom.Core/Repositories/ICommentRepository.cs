@@ -1,6 +1,8 @@
+using Core.Entities;
+
 namespace Core.Repositories;
 
-public class ICommentRepository
+public interface ICommentRepository : IGenericRepository<Comment>
 {
     
 }

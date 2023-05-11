@@ -1,6 +1,8 @@
+using Core.Entities;
+
 namespace Core.Repositories;
 
-public class IStarRepository
-{
+public interface IStarRepository : IGenericRepository<Star>
+{ 
     
 }
