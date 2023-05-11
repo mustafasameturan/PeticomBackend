@@ -14,6 +14,12 @@ public class PeticomDbContext : DbContext
     public DbSet<PetIdentity> PetIdentities { get; set; }
     public DbSet<PetDisease> PetDiseases { get; set; }
     public DbSet<PetVaccine> PetVaccines { get; set; }
+    public DbSet<PeticomerBadge> PeticomerBadges { get; set; }
+    public DbSet<PeticomerHome> PeticomerHomes { get; set; }
+    public DbSet<Ad> Ads { get; set; }
+    public DbSet<Comment> Comments { get; set; }
+    public DbSet<SubComment> SubComments { get; set; }
+    public DbSet<Star> Stars { get; set; }
     
     /// <summary>
     /// This method is used to set the CreatedDate and UpdatedDate properties of the entities. For sync operations.

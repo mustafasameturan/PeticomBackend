@@ -10,6 +10,7 @@ public class PeticomerBadgeConfiguration : IEntityTypeConfiguration<PeticomerBad
     {
         builder.HasKey(p => p.Id);
         builder.Property(p => p.Id).HasDefaultValueSql("NEWID()").ValueGeneratedOnAdd();
+        builder.Property(p => p.UserId).IsRequired();
         builder.Property(p => p.Cigaret).IsRequired();
         builder.Property(p => p.Car).IsRequired();
         builder.Property(p => p.CarDistance).IsRequired();

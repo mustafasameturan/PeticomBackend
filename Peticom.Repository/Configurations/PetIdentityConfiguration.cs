@@ -10,6 +10,7 @@ public class PetIdentityConfiguration : IEntityTypeConfiguration<PetIdentity>
     {
         builder.HasKey(p => p.Id);
         builder.Property(p => p.Id).HasDefaultValueSql("NEWID()").ValueGeneratedOnAdd();
+        builder.Property(p => p.UserId).IsRequired();
         builder.Property(p => p.Type).IsRequired().HasMaxLength(200);
         builder.Property(p => p.Color).HasMaxLength(100);
         builder.Property(p => p.BirthDate).IsRequired();
