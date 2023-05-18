@@ -3,7 +3,7 @@ using Core.Models;
 
 namespace Core.Responses;
 
-public class Response<T> where T : class
+public class Response<T>
 {
     public T Data { get; private set; }
     public int StatusCode { get; set; }

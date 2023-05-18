@@ -1,10 +1,12 @@
 using System.Reflection;
 using Core.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess;
 
-public class PeticomDbContext : DbContext
+public class PeticomDbContext : IdentityDbContext<UserApp, IdentityRole, string>
 {
     public PeticomDbContext(DbContextOptions<PeticomDbContext> options) : base(options)
     {
