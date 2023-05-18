@@ -1,6 +1,6 @@
 namespace Core.Services;
 
-public class IAuthenticationService
+public interface IAuthenticationService
 {
     
 }

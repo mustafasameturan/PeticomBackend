@@ -1,6 +1,11 @@
 using System.Reflection;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using Business.Mapping;
 using DataAccess;
 using Microsoft.EntityFrameworkCore;
+using WebAPI.Middlewares;
+using WebAPI.Modules;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +25,14 @@ builder.Services.AddDbContext<PeticomDbContext>(x =>
     });
 });
 
+//Automapper implemantasyonu
+builder.Services.AddAutoMapper(typeof(MapProfile));
+
+//Autofac implemantasyonu
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
+    containerBuilder.RegisterModule(new RepositoryServiceModule()));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -30,6 +43,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCustomException();
+
+app.UseMiddleware<ApiKeyAuthorizationMiddleware>();
 
 app.UseAuthorization();
 

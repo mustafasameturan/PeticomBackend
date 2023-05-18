@@ -1,6 +1,10 @@
+using Core.Entities;
+using Core.Models;
+using Core.Repositories;
+
 namespace Core.Services;
 
-public class IAdService
+public interface IAdService : IGenericService<Ad, AdModel>
 {
     
 }

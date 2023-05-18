@@ -15,7 +15,7 @@ public interface IGenericService<TEntity, TModel> where TEntity : class where TM
     // Add entity
     Task<Response<TModel>> AddAsync(TModel entity);
     // Remove entity
-    Task<Response<NoDataModel>> Remove(Guid id);
+    Task<Response<NoDataModel>> RemoveAsync(Guid id);
     //Update entity
-    Task<Response<NoDataModel>> Update(TModel entity, Guid id);
+    Task<Response<NoDataModel>> UpdateAsync(TModel entity, Guid id);
 }
