@@ -1,14 +1,13 @@
 using System.Reflection;
 using Autofac;
-using Business.Mapping;
-using Business.Services;
-using Core.Repositories;
-using Core.Services;
-using Core.UnitOfWorks;
-using DataAccess;
-using DataAccess.Repositories;
-using DataAccess.UnitOfWorks;
-using IAdService = Core.Services.IAdService;
+using Peticom.Core.Repositories;
+using Peticom.Core.Services;
+using Peticom.Core.UnitOfWorks;
+using Peticom.Repository;
+using Peticom.Repository.Repositories;
+using Peticom.Repository.UnitOfWorks;
+using Peticom.Service.Mapping;
+using Peticom.Service.Services;
 
 namespace WebAPI.Modules;
 using Module = Autofac.Module;

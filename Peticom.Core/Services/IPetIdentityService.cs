@@ -1,8 +1,8 @@
-using Core.Entities;
-using Core.Models;
-using Core.Responses;
+using Peticom.Core.Entities;
+using Peticom.Core.Models;
+using Peticom.Core.Responses;
 
-namespace Core.Services;
+namespace Peticom.Core.Services;
 
 public interface IPetIdentityService : IGenericService<PetIdentity, PetIdentityModel>
 {

@@ -1,7 +1,7 @@
 using System.Text.Json.Serialization;
-using Core.Models;
+using Peticom.Core.Models;
 
-namespace Core.Responses;
+namespace Peticom.Core.Responses;
 
 public class Response<T>
 {

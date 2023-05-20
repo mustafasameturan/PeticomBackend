@@ -1,6 +1,6 @@
-using Core.Entities;
+using Peticom.Core.Entities;
 
-namespace Core.Repositories;
+namespace Peticom.Core.Repositories;
 
 public interface IPeticomerHomeRepository : IGenericRepository<PeticomerHome>
 {

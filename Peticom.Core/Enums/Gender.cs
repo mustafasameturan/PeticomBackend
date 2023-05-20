@@ -1,7 +1,7 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace Core.Enums;
+namespace Peticom.Core.Enums;
 
 public enum Gender
 {

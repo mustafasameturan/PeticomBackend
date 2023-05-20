@@ -1,7 +1,7 @@
-using Core.Entities;
-using Core.Repositories;
+using Peticom.Core.Entities;
+using Peticom.Core.Repositories;
 
-namespace DataAccess.Repositories;
+namespace Peticom.Repository.Repositories;
 
 public class PetDiseaseRepository : GenericRepository<PetDisease>, IPetDiseaseRepository
 {

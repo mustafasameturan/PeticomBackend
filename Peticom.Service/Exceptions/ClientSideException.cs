@@ -1,4 +1,4 @@
-namespace Business.Exceptions;
+namespace Peticom.Service.Exceptions;
 
 public class ClientSideException : Exception
 {

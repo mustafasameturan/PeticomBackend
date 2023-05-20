@@ -1,8 +1,8 @@
 using System.Linq.Expressions;
-using Core.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Peticom.Core.Repositories;
 
-namespace DataAccess.Repositories;
+namespace Peticom.Repository.Repositories;
 
 public class GenericRepository<T> : IGenericRepository<T> where T : class
 {

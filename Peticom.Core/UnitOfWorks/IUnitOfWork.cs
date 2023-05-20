@@ -1,4 +1,4 @@
-namespace Core.UnitOfWorks;
+namespace Peticom.Core.UnitOfWorks;
 
 public interface IUnitOfWork
 {

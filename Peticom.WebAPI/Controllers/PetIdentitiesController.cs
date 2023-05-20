@@ -1,8 +1,10 @@
-using Core.Services;
 using Microsoft.AspNetCore.Mvc;
+using Peticom.Core.Services;
 
-namespace WebAPI.Controllers;
+namespace Peticom.WebAPI.Controllers;
 
+[Route("api/petIdentities")]
+[ApiController]
 public class PetIdentitiesController : BaseController
 {
     private readonly IPetIdentityService _petIdentityService;

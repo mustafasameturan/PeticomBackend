@@ -1,6 +1,6 @@
 using System.Linq.Expressions;
 
-namespace Core.Repositories;
+namespace Peticom.Core.Repositories;
 
 public interface IGenericRepository<T> where T : class
 {

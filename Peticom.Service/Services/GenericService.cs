@@ -1,13 +1,13 @@
 using System.Linq.Expressions;
 using AutoMapper;
-using Core.Models;
-using Core.Repositories;
-using Core.Responses;
-using Core.Services;
-using Core.UnitOfWorks;
 using Microsoft.EntityFrameworkCore;
+using Peticom.Core.Models;
+using Peticom.Core.Repositories;
+using Peticom.Core.Responses;
+using Peticom.Core.Services;
+using Peticom.Core.UnitOfWorks;
 
-namespace Business.Services;
+namespace Peticom.Service.Services;
 
 public class GenericService<TEntity, TModel> : IGenericService<TEntity, TModel> where TEntity : class where TModel : class
 {

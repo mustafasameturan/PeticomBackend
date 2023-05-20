@@ -1,7 +1,7 @@
-using Core.Entities;
-using Core.Enums;
+using Peticom.Core.Entities;
+using Peticom.Core.Enums;
 
-namespace Core.Models;
+namespace Peticom.Core.Models;
 
 public class PetIdentityModel
 {

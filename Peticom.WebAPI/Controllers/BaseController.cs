@@ -1,10 +1,8 @@
-using Core.Responses;
 using Microsoft.AspNetCore.Mvc;
+using Peticom.Core.Responses;
 
-namespace WebAPI.Controllers;
+namespace Peticom.WebAPI.Controllers;
 
-[Route("api/[controller]")]
-[ApiController]
 public class BaseController : ControllerBase
 {
     /// <summary>
