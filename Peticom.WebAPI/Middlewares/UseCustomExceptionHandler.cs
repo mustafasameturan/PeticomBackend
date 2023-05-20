@@ -1,10 +1,10 @@
 using System.Text.Json;
-using Business.Exceptions;
-using Core.Models;
-using Core.Responses;
 using Microsoft.AspNetCore.Diagnostics;
+using Peticom.Core.Models;
+using Peticom.Core.Responses;
+using Peticom.Service.Exceptions;
 
-namespace WebAPI.Middlewares;
+namespace Peticom.WebAPI.Middlewares;
 
 public static class UseCustomExceptionHandler
 {

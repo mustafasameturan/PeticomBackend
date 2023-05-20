@@ -1,6 +1,6 @@
-using Core.Enums;
+using Peticom.Core.Enums;
 
-namespace Core.Entities;
+namespace Peticom.Core.Entities;
 
 public class PetIdentity : BaseEntity
 {

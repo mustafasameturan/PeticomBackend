@@ -1,7 +1,6 @@
-using Core.Entities;
-using Core.Models;
+using Peticom.Core.Entities;
 
-namespace Core.Repositories;
+namespace Peticom.Core.Repositories;
 
 public interface IPetIdentityRepository : IGenericRepository<PetIdentity>
 {

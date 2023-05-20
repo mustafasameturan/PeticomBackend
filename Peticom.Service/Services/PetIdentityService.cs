@@ -1,13 +1,14 @@
 using AutoMapper;
-using Business.Exceptions;
-using Core.Entities;
-using Core.Models;
-using Core.Repositories;
-using Core.Responses;
-using Core.Services;
-using Core.UnitOfWorks;
+using Peticom.Core.Entities;
+using Peticom.Core.Models;
+using Peticom.Core.Repositories;
+using Peticom.Core.Responses;
+using Peticom.Core.Services;
+using Peticom.Core.UnitOfWorks;
+using Peticom.Service.Exceptions;
 
-namespace Business.Services;
+
+namespace Peticom.Service.Services;
 
 public class PetIdentityService : GenericService<PetIdentity, PetIdentityModel>, IPetIdentityService
 {

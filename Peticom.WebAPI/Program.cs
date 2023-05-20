@@ -1,14 +1,13 @@
 using System.Reflection;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using Business.Mapping;
-using DataAccess;
+using Peticom.Service.Mapping;
 using Microsoft.EntityFrameworkCore;
-using WebAPI.Middlewares;
+using Peticom.Repository;
+using Peticom.WebAPI.Middlewares;
 using WebAPI.Modules;
 
 var builder = WebApplication.CreateBuilder(args);
-
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -46,7 +45,7 @@ app.UseHttpsRedirection();
 
 app.UseCustomException();
 
-app.UseMiddleware<ApiKeyAuthorizationMiddleware>();
+//app.UseMiddleware<ApiKeyAuthorizationMiddleware>();
 
 app.UseAuthorization();
 

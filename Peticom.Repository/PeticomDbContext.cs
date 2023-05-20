@@ -1,10 +1,10 @@
 using System.Reflection;
-using Core.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Peticom.Core.Entities;
 
-namespace DataAccess;
+namespace Peticom.Repository;
 
 public class PeticomDbContext : IdentityDbContext<UserApp, IdentityRole, string>
 {

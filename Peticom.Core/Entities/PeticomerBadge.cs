@@ -1,4 +1,4 @@
-namespace Core.Entities;
+namespace Peticom.Core.Entities;
 
 public class PeticomerBadge : BaseEntity
 {

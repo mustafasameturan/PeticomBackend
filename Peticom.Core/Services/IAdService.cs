@@ -1,10 +1,10 @@
-using Core.Entities;
-using Core.Models;
-using Core.Repositories;
+using Peticom.Core.Entities;
+using Peticom.Core.Models;
+using Peticom.Core.Responses;
 
-namespace Core.Services;
+namespace Peticom.Core.Services;
 
 public interface IAdService : IGenericService<Ad, AdModel>
 {
-    
+    public Task<Response<AdFilterResponseModel>> GetAdsByFilterAsync(AdFilterRequestModel requestModel);
 }

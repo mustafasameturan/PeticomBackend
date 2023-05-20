@@ -1,6 +1,6 @@
-using Core.UnitOfWorks;
+using Peticom.Core.UnitOfWorks;
 
-namespace DataAccess.UnitOfWorks;
+namespace Peticom.Repository.UnitOfWorks;
 
 public class UnitOfWork : IUnitOfWork
 {

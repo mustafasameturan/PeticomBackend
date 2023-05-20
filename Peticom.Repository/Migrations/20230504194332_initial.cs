@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace DataAccess.Migrations
+namespace Peticom.Repository.Migrations
 {
     public partial class initial : Migration
     {

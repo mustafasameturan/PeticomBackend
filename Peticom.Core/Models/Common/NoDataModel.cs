@@ -1,4 +1,4 @@
-namespace Core.Models;
+namespace Peticom.Core.Models;
 
 public class NoDataModel
 {

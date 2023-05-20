@@ -1,8 +1,8 @@
-using Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Peticom.Core.Entities;
 
-namespace DataAccess.Configurations;
+namespace Peticom.Repository.Configurations;
 
 public class UserAppConfiguration : IEntityTypeConfiguration<UserApp>
 {

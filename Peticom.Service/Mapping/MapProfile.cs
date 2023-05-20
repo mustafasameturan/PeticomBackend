@@ -1,8 +1,8 @@
 using AutoMapper;
-using Core.Entities;
-using Core.Models;
+using Peticom.Core.Entities;
+using Peticom.Core.Models;
 
-namespace Business.Mapping;
+namespace Peticom.Service.Mapping;
 
 public class MapProfile : Profile
 {

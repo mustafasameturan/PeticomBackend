@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 
-namespace Core.Entities;
+namespace Peticom.Core.Entities;
 
 public class UserApp : IdentityUser
 {

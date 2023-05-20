@@ -1,9 +1,8 @@
-using Core.Entities;
-using Core.Models;
-using Core.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Peticom.Core.Entities;
+using Peticom.Core.Repositories;
 
-namespace DataAccess.Repositories;
+namespace Peticom.Repository.Repositories;
 
 public class PetIdentityRepository : GenericRepository<PetIdentity>, IPetIdentityRepository
 {

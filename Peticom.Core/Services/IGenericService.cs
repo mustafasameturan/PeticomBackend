@@ -1,8 +1,8 @@
 using System.Linq.Expressions;
-using Core.Models;
-using Core.Responses;
+using Peticom.Core.Models;
+using Peticom.Core.Responses;
 
-namespace Core.Services;
+namespace Peticom.Core.Services;
 
 public interface IGenericService<TEntity, TModel> where TEntity : class where TModel : class
 {

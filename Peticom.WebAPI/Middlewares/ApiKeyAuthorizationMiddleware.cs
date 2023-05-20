@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Primitives;
 
-namespace WebAPI.Middlewares;
+namespace Peticom.WebAPI.Middlewares;
 
 public class ApiKeyAuthorizationMiddleware
 {
