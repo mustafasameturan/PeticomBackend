@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using Peticom.Core.Enums;
 
 namespace Peticom.Core.Entities;
@@ -13,5 +14,6 @@ public class PetIdentity : BaseEntity
     public string? PetLitter { get; set; }
     public DateTime LastInsDate { get; set; }
     public ICollection<PetDisease> PetDiseases { get; set; }
+    
     public ICollection<PetVaccine> PetVaccines { get; set; }
 }

@@ -12,6 +12,7 @@ public interface IGenericRepository<T> where T : class
     
     //Get entities by expression
     IQueryable<T> Where(Expression<Func<T, bool>> expression);
+    IQueryable<T> Queryable();
     
     //Check if entity exists by expression
     Task<bool> AnyAsync(Expression<Func<T, bool>> expression);

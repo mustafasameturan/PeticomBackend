@@ -10,8 +10,10 @@ public class PetIdentityRepository : GenericRepository<PetIdentity>, IPetIdentit
     {
     }
 
-    public async Task<List<PetIdentity>> GetPetIdentitiesByUserIdAsync(string userId)
+    public async Task<List<PetIdentity>> GetPetIdentityByUserIdAsync(string userId)
     {
-        return await _context.PetIdentities.Where(p => p.UserId == userId).ToListAsync();
+        return await _context.PetIdentities.AsQueryable()
+            .Where(p => p.UserId == userId)
+            .ToListAsync();
     }
 }

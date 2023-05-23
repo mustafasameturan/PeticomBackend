@@ -4,5 +4,5 @@ namespace Peticom.Core.Repositories;
 
 public interface IPetIdentityRepository : IGenericRepository<PetIdentity>
 {
-    Task<List<PetIdentity>> GetPetIdentitiesByUserIdAsync(string userId);
+    public Task<List<PetIdentity>> GetPetIdentityByUserIdAsync(string userId);
 }

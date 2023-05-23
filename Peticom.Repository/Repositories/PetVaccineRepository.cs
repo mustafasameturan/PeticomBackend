@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Peticom.Core.Entities;
 using Peticom.Core.Repositories;
 
@@ -7,5 +8,14 @@ public class PetVaccineRepository : GenericRepository<PetVaccine>, IPetVaccineRe
 {
     public PetVaccineRepository(PeticomDbContext context) : base(context)
     {
+    }
+
+    public async Task<List<PetVaccine>> GetPetVaccinesByPetIdAsync(Guid petId)
+    {
+        var petVaccines = await _context.PetVaccines.AsQueryable()
+            .Where(p => p.PetId == petId)
+            .ToListAsync();
+
+        return petVaccines;
     }
 }
