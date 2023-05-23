@@ -45,6 +45,8 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
         return _dbSet.Where(expression);
     }
+    
+    public IQueryable<T> Queryable() => _dbSet.AsQueryable();
 
     /// <summary>
     /// This method is used to check if entity exists by expression

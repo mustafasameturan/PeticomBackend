@@ -23,4 +23,10 @@ public class PetIdentitiesController : BaseController
     {
         return CreateActionResult(await _petIdentityService.GetAllAsync());
     }
+    
+    [HttpGet("getFullIdentityByUserId")]
+    public async Task<IActionResult> GetFullIdentityByUserId(string userId)
+    {
+        return CreateActionResult(await _petIdentityService.GetPetFullIdentityByUserIdAsync(userId));
+    }
 }

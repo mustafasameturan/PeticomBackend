@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace Peticom.Core.Entities;
 
 public class PetDisease : BaseEntity

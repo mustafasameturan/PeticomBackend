@@ -6,5 +6,5 @@ namespace Peticom.Core.Services;
 
 public interface IPetIdentityService : IGenericService<PetIdentity, PetIdentityModel>
 {
-    Task<Response<List<PetIdentityModel>>> GetPetIdentitiesByUserIdAsync(string userId);
+    Task<Response<List<PetFullIdentityModel>>> GetPetFullIdentityByUserIdAsync(string userId);
 }
