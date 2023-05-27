@@ -6,4 +6,6 @@ public class Ad : BaseEntity
     public string Slogan { get; set; }
     public string About { get; set; }
     public double Price { get; set; }
+
+    public ICollection<Star> Stars { get; set; }
 }

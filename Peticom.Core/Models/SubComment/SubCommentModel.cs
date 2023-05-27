@@ -1,9 +1,9 @@
-namespace Peticom.Core.Entities;
+namespace Peticom.Core.Models.SubComment;
 
-public class SubComment : BaseEntity
+public class SubCommentModel
 {
+    public Guid? Id { get; set; }
     public string UserId { get; set; }
     public Guid CommentId { get; set; }
     public string Text { get; set; }
-    public Comment Comment { get; set; }
 }

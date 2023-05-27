@@ -5,6 +5,7 @@ using Autofac.Extensions.DependencyInjection;
 using Peticom.Service.Mapping;
 using Microsoft.EntityFrameworkCore;
 using Peticom.Repository;
+using Peticom.WebAPI.Extensions;
 using Peticom.WebAPI.Middlewares;
 using WebAPI.Modules;
 
@@ -35,6 +36,8 @@ builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
     containerBuilder.RegisterModule(new RepositoryServiceModule()));
 
+builder.Services.UseSwaggerAuthorization();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -48,9 +51,9 @@ app.UseHttpsRedirection();
 
 app.UseCustomException();
 
-app.UseMiddleware<ApiKeyAuthorizationMiddleware>();
+app.UseSwagger();
 
-app.UseAuthorization();
+app.UseMiddleware<ApiKeyAuthorizationMiddleware>();
 
 app.MapControllers();
 
