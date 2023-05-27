@@ -4,7 +4,7 @@ using Peticom.Core.Services;
 
 namespace Peticom.WebAPI.Controllers;
 
-[Route("api/ads")]
+[Route("api/advertisements")]
 [ApiController]
 public class AdsController : BaseController
 {
@@ -45,7 +45,12 @@ public class AdsController : BaseController
     {
         return CreateActionResult(await _adService.GetByIdAsync(id));
     }
-
+    
+    /// <summary>
+    /// This method is used to add new ad.
+    /// </summary>
+    /// <param name="model"></param>
+    /// <returns></returns>
     [HttpPost("add")]
     public async Task<IActionResult> Add(AdModel model)
     {

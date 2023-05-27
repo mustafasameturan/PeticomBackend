@@ -13,5 +13,6 @@ public class StarConfiguration : IEntityTypeConfiguration<Star>
         builder.Property(p => p.UserId).IsRequired();
         builder.Property(p => p.AdId).IsRequired();
         builder.Property(p => p.StarCount).IsRequired();
+        builder.HasOne(p => p.Ad).WithMany(p => p.Stars).HasForeignKey(p => p.AdId);
     }
 }

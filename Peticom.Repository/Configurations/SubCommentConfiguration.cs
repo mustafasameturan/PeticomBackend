@@ -13,7 +13,6 @@ public class SubCommentConfiguration : IEntityTypeConfiguration<SubComment>
         builder.Property(p => p.UserId).IsRequired();
         builder.Property(p => p.CommentId).IsRequired();
         builder.Property(p => p.Text).IsRequired().HasMaxLength(500);
-        builder.Property(p => p.LikeCount).IsRequired();
         builder.HasOne(p => p.Comment).WithMany(p => p.SubComments).HasForeignKey(p => p.CommentId);
     }
 }
