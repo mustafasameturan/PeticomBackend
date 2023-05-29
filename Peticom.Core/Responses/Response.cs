@@ -7,6 +7,7 @@ public class Response<T>
 {
     public T Data { get; private set; }
     public int StatusCode { get; set; }
+    public string Message{ get; set; }
     
     [JsonIgnore] 
     public bool IsSuccessfull { get; private set; }
@@ -23,7 +24,12 @@ public class Response<T>
     {
         return new Response<T> { Data = default, StatusCode = statusCode, IsSuccessfull = true};
     }
-    
+
+    public static Response<T> Success(string message, int statusCode)
+    {
+        return new Response<T> { Data = default, Message = message, StatusCode = statusCode, IsSuccessfull = true };
+    }
+
     public static Response<T> Fail(ErrorModel errorModel, int statusCode)
     {
         return new Response<T> { Error = errorModel, StatusCode = statusCode, IsSuccessfull = false};
