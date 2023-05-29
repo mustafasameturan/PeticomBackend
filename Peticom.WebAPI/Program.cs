@@ -4,6 +4,8 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Peticom.Service.Mapping;
 using Microsoft.EntityFrameworkCore;
+using Peticom.Core.Domain;
+using Peticom.Core.Services;
 using Peticom.Repository;
 using Peticom.WebAPI.Extensions;
 using Peticom.WebAPI.Middlewares;

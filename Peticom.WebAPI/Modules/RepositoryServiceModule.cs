@@ -31,8 +31,7 @@ public class RepositoryServiceModule : Module
 
         //UnitOfWork Generic bir class olmadığı için RegisterType kullandık.
         builder.RegisterType<UnitOfWork>().As<IUnitOfWork>();
-        //builder.RegisterType<AdService>().As<IAdService>();
-        //builder.RegisterType<AdRepository>().As<IAdRepository>();
+        //builder.RegisterType<EmailService>().As<IEmailService>();
         
         //Projede service-repo interface-class'larının kullanıldığı yerlerin assembly'lerini alıyoruz.
         var apiAssembly = Assembly.GetExecutingAssembly();
