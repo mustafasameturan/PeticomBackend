@@ -2,11 +2,15 @@ using System.Reflection;
 using System.Text.Json.Serialization;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Peticom.Service.Mapping;
 using Microsoft.EntityFrameworkCore;
 using Peticom.Core.Domain;
+using Peticom.Core.Entities;
 using Peticom.Core.Services;
 using Peticom.Repository;
+using Peticom.Service.Services;
 using Peticom.WebAPI.Extensions;
 using Peticom.WebAPI.Middlewares;
 using WebAPI.Modules;
@@ -30,6 +34,37 @@ builder.Services.AddDbContext<PeticomDbContext>(x =>
     });
 });
 
+//Token Options integration
+builder.Services.Configure<TokenSettings>(builder.Configuration.GetSection("TokenOptions"));
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, opts =>
+{
+    var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<TokenSettings>();
+    opts.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+    {
+        ValidIssuer = tokenOptions.Issuer,
+        ValidAudience = tokenOptions.Audience,
+        IssuerSigningKey = SignService.GetSymmetricSecurityKey(tokenOptions.SecurityKey),
+
+        ValidateIssuerSigningKey = true,
+        ValidateAudience = true,
+        ValidateIssuer = true,
+        ValidateLifetime = true,
+        ClockSkew = TimeSpan.Zero
+    };
+});
+
+//Identity Configurations
+builder.Services.AddIdentity<UserApp, IdentityRole>(Opt =>
+{
+    Opt.User.RequireUniqueEmail = true;
+    Opt.Password.RequireNonAlphanumeric = false;
+}).AddEntityFrameworkStores<PeticomDbContext>().AddDefaultTokenProviders();
+
 //Automapper implemantasyonu
 builder.Services.AddAutoMapper(typeof(MapProfile));
 
@@ -50,6 +85,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
+
+app.UseAuthorization();
 
 app.UseCustomException();
 

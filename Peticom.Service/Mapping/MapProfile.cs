@@ -9,6 +9,7 @@ using Peticom.Core.Models.PeticomerHome;
 using Peticom.Core.Models.PetVaccine;
 using Peticom.Core.Models.Star;
 using Peticom.Core.Models.SubComment;
+using Peticom.Core.Models.User;
 
 namespace Peticom.Service.Mapping;
 
@@ -37,5 +38,7 @@ public class MapProfile : Profile
         
         CreateMap<PeticomerApplication, PeticomerApplicationModel>().ReverseMap();
         CreateMap<PeticomerApplication, PeticomerApplicationWithStatusModel>().ReverseMap();
+
+        CreateMap<UserApp, UserAppModel>().ReverseMap();
     }
 }

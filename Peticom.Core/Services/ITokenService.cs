@@ -1,6 +1,9 @@
+using Peticom.Core.Entities;
+using Peticom.Core.Models.Token;
+
 namespace Peticom.Core.Services;
 
-public class ITokenService
+public interface ITokenService
 {
-    
+    TokenModel CreateToken(UserApp userApp);
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Peticom.Repository;
 
@@ -11,9 +12,10 @@ using Peticom.Repository;
 namespace Peticom.Repository.Migrations
 {
     [DbContext(typeof(PeticomDbContext))]
-    partial class PeticomDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230530155211_user-app-edit-2")]
+    partial class userappedit2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -575,9 +577,6 @@ namespace Peticom.Repository.Migrations
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("VerificationCode")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

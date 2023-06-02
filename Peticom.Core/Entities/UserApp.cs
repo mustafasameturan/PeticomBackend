@@ -4,6 +4,7 @@ namespace Peticom.Core.Entities;
 
 public class UserApp : IdentityUser
 {
-    public string FullName { get; set; }
-    public string City { get; set; }
+    public string? FullName { get; set; }
+    public string? City { get; set; }
+    public string? VerificationCode { get; set; }
 }
