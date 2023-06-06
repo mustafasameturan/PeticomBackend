@@ -75,6 +75,17 @@ builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
 
 builder.Services.UseSwaggerAuthorization();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("MyAllowedOrigins",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:3000") // note the port is included 
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -83,6 +94,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("MyAllowedOrigins");
 
 app.UseHttpsRedirection();
 

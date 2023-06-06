@@ -63,7 +63,13 @@ public class UserService : IUserService
     /// <returns></returns>
     public async Task<Response<UserAppModel>> RegisterAsync(RegisterModel registerModel)
     {
-        var user = new UserApp { Email = registerModel.Email, UserName = registerModel.UserName, FullName = registerModel.FullName};
+        var user = new UserApp
+        {
+            Email = registerModel.Email, 
+            FullName = registerModel.FullName, 
+            PhoneNumber = registerModel.PhoneNumber,
+            UserName = registerModel.Email
+        };
         
         var result = await _userManager.CreateAsync(user, registerModel.Password);
 
