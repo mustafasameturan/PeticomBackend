@@ -1,7 +1,7 @@
-namespace Peticom.Core.Models;
+namespace Peticom.Core.Models.Token;
 
 public class TokenModel
 {
-    public string AccessToken { get; set; }
-    public DateTime AccessTokenExpiration { get; set; }
+    public string Token { get; set; }
+    public DateTime TokenExpiration { get; set; }
 }
