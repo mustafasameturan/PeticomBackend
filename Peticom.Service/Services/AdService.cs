@@ -39,6 +39,7 @@ public class AdService : GenericService<Ad, AdModel>, IAdService
 
         var adModelList = ads.Select(a => new AdModel
         {   
+            Id = a.Id,
             UserId = a.UserId,
             Slogan = a.Slogan,
             About = a.About,

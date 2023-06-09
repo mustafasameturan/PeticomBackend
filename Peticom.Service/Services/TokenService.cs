@@ -26,7 +26,7 @@ public class TokenService : ITokenService
     /// </summary>
     /// <param name="userApp"></param>
     /// <returns></returns>
-    public TokenModel CreateToken(UserApp userApp)
+    public TokenModel CreateToken(UserApp userApp, IList<string> userRoles)
     {
         var accessTokenExpiration = DateTime.Now.AddMinutes(_tokenSettings.Expiration);
         var securityKey = SignService.GetSymmetricSecurityKey(_tokenSettings.SecurityKey);
@@ -37,7 +37,7 @@ public class TokenService : ITokenService
             issuer: _tokenSettings.Issuer,
             expires: accessTokenExpiration,
             notBefore: DateTime.Now,
-            claims: GetClaims(userApp),
+            claims: GetClaims(userApp, userRoles),
             signingCredentials: signingCredentials);
 
         var handler = new JwtSecurityTokenHandler();
@@ -53,13 +53,15 @@ public class TokenService : ITokenService
         return tokenModel;
     }
 
-    private IEnumerable<Claim> GetClaims(UserApp userApp)
+    private IEnumerable<Claim> GetClaims(UserApp userApp, IList<string> userRoles)
     {
         var claims = new List<Claim>
         {
             new Claim("UserId", userApp.Id),
             new Claim("UserEmail", userApp.Email),
             new Claim("UserName", userApp.UserName),
+            new Claim("IsUserVerificated", userApp.EmailConfirmed.ToString()),
+            new Claim("UserRoles", string.Join(",", userRoles))
         };
         
         return claims;

@@ -12,5 +12,6 @@ public class CommentConfiguration : IEntityTypeConfiguration<Comment>
         builder.Property(p => p.Id).HasDefaultValueSql("NEWID()").ValueGeneratedOnAdd();
         builder.Property(p => p.UserId).IsRequired();
         builder.Property(p => p.Text).IsRequired().HasMaxLength(500);
+        
     }
 }

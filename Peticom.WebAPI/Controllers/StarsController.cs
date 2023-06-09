@@ -35,6 +35,17 @@ public class StarsController : BaseController
     {
         return CreateActionResult(await _starService.GetStarsByAdIdAsync(adId));
     }
+    
+    /// <summary>
+    /// This method calculate star average by ad id.
+    /// </summary>
+    /// <param name="adId"></param>
+    /// <returns></returns>
+    [HttpGet("calculateStarAverageByAdIdAsync")]
+    public async Task<IActionResult> CalculateStarAverageByAdId(Guid adId)
+    {
+        return CreateActionResult(await _starService.CalculateStarAverageByAdIdAsync(adId));
+    }
 
     /// <summary>
     /// This method is add star.
@@ -46,5 +57,4 @@ public class StarsController : BaseController
     {
         return CreateActionResult(await _starService.AddAsync(starModel));
     }
-
 }

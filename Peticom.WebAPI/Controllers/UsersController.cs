@@ -41,6 +41,12 @@ public class UsersController : BaseController
         return CreateActionResult(await _userService.LoginAsync(loginModel));
     }
     
+    [HttpPost("updatePassword")]
+    public async Task<IActionResult> UpdatePassword(UpdatePasswordModel updatePasswordModel)
+    {
+        return CreateActionResult(await _userService.UpdatePasswordAsync(updatePasswordModel));
+    }
+    
     [HttpPost("sendVerificationCode/{userId}")]
     public async Task<IActionResult> SendVerificationCode(string userId)
     {

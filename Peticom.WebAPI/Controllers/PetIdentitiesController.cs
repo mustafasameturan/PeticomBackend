@@ -23,7 +23,13 @@ public class PetIdentitiesController : BaseController
     {
         return CreateActionResult(await _petIdentityService.GetAllAsync());
     }
-    
+
+    [HttpGet("petIdentitiesSelectListByUserId")]
+    public async Task<IActionResult> GetPetIdentitiesSelectListByUserId(string userId)
+    {
+        return CreateActionResult(await _petIdentityService.GetPetIdentitySelectListAsync(userId));
+    }
+
     [HttpGet("getFullIdentityByUserId")]
     public async Task<IActionResult> GetFullIdentityByUserId(string userId)
     {

@@ -11,6 +11,7 @@ public interface IUserService
 {
     Task<Response<TokenModel>> LoginAsync(LoginModel loginModel);
     Task<Response<UserAppModel>> RegisterAsync(RegisterModel registerModel);
+    Task<Response<UpdatePasswordModel>> UpdatePasswordAsync(UpdatePasswordModel updatePasswordModel);
 
     Task<Response<NoDataModel>> SendVerificationCode(string userId);
 

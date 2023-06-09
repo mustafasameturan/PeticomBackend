@@ -19,6 +19,7 @@ public class MapProfile : Profile
     {
         CreateMap<PetIdentity, PetIdentityModel>().ReverseMap();
         CreateMap<PetIdentity, PetFullIdentityModel>().ReverseMap();
+        CreateMap<PetIdentity, PetIdentitySelectListModel>().ReverseMap();
         
         CreateMap<Ad, AdModel>().ReverseMap();
         

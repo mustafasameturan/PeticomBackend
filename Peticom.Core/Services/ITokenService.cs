@@ -5,5 +5,5 @@ namespace Peticom.Core.Services;
 
 public interface ITokenService
 {
-    TokenModel CreateToken(UserApp userApp);
+    TokenModel CreateToken(UserApp userApp, IList<string> userRoles);
 }

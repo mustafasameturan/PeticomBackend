@@ -37,6 +37,7 @@ builder.Services.AddDbContext<PeticomDbContext>(x =>
 //Token Options integration
 builder.Services.Configure<TokenSettings>(builder.Configuration.GetSection("TokenOptions"));
 
+//Authentication ve token implementasyonu
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -58,12 +59,8 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-//Identity Configurations
-builder.Services.AddIdentity<UserApp, IdentityRole>(Opt =>
-{
-    Opt.User.RequireUniqueEmail = true;
-    Opt.Password.RequireNonAlphanumeric = false;
-}).AddEntityFrameworkStores<PeticomDbContext>().AddDefaultTokenProviders();
+//Identity implementasyonu
+builder.Services.AddIdentity();
 
 //Automapper implemantasyonu
 builder.Services.AddAutoMapper(typeof(MapProfile));
@@ -73,18 +70,11 @@ builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
     containerBuilder.RegisterModule(new RepositoryServiceModule()));
 
-builder.Services.UseSwaggerAuthorization();
+//swagger api key implementasyonu
+builder.Services.AddSwaggerAuthorization();
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("MyAllowedOrigins",
-        policy =>
-        {
-            policy.WithOrigins("http://localhost:3000") // note the port is included 
-                .AllowAnyHeader()
-                .AllowAnyMethod();
-        });
-});
+//cors implementasyonu 
+builder.Services.UseCors();
 
 var app = builder.Build();
 

@@ -10,5 +10,11 @@ public class UserAppConfiguration : IEntityTypeConfiguration<UserApp>
     {
         builder.Property(p => p.FullName).HasMaxLength(100);
         builder.Property(p => p.City).HasMaxLength(50);
+        builder.HasMany(u => u.PetIdentities)
+            .WithOne(p => p.UserApp)
+            .HasForeignKey(p => p.UserId);
+        builder.HasMany(u => u.Ads)
+            .WithOne(p => p.UserApp)
+            .HasForeignKey(p => p.UserId);
     }
 }
