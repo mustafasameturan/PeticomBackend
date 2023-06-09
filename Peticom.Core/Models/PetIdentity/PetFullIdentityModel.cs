@@ -8,6 +8,7 @@ public class PetFullIdentityModel
 {
     public Guid PetId { get; set; }
     public string UserId { get; set; }
+    public string Name { get; set; }
     public string Type { get; set; }
     public string Color { get; set; }
     public DateTime? BirthDate { get; set; }

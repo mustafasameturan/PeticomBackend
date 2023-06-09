@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Peticom.Core.Domain;
@@ -15,15 +16,18 @@ namespace Peticom.Service.Services;
 public class PeticomerApplicationService : GenericService<PeticomerApplication, PeticomerApplicationModel>, IPeticomerApplicationService
 {
     private readonly IPeticomerApplicationRepository _peticomerApplicationRepository;
+    private readonly UserManager<UserApp> _userManager;
     private readonly IMapper _mapper;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IEmailService _emailService;
     private readonly IConfiguration _configuration;
     
     public PeticomerApplicationService(IUnitOfWork unitOfWork, IGenericRepository<PeticomerApplication> repository, IMapper mapper,
-        IPeticomerApplicationRepository peticomerApplicationRepository, IEmailService emailService, IConfiguration configuration) : base(unitOfWork, repository, mapper)
+        IPeticomerApplicationRepository peticomerApplicationRepository, IEmailService emailService, IConfiguration configuration,
+        UserManager<UserApp> userManager) : base(unitOfWork, repository, mapper)
     {
         _peticomerApplicationRepository = peticomerApplicationRepository;
+        _userManager = userManager;
         _mapper = mapper;
         _unitOfWork = unitOfWork;
         _emailService = emailService;
@@ -91,23 +95,30 @@ public class PeticomerApplicationService : GenericService<PeticomerApplication, 
         var peticomerApplication = _peticomerApplicationRepository
             .Where(p => p.UserId == peticomerApplicationModel.UserId).FirstOrDefault();
 
-        if (peticomerApplication == null)
+        var user = await _userManager.FindByIdAsync(peticomerApplicationModel.UserId);
+
+        if (peticomerApplication != null)
         {
-            var newApplication = _mapper.Map<PeticomerApplication>(peticomerApplicationModel);
+            return Response<PeticomerApplicationModel>.Fail("You have already applicaton!", 400, true);
+        }
 
-            await _peticomerApplicationRepository.AddAsync(newApplication);
-
-            await _unitOfWork.CommitAsync();
-
-            var newModel = _mapper.Map<PeticomerApplicationModel>(newApplication);
-            
-            _emailService.SendEmail(_configuration[Settings.SenderEmail], peticomerApplicationModel.Email, "Başvuru Hakkında", 
-                "Başvurunuz alınmıştır. En kısa süre içerisinde başvurunuza geri dönüş yapılacaktır.");
-
-            return Response<PeticomerApplicationModel>.Success(newModel, 204);
+        if (!user.EmailConfirmed)
+        {
+            return Response<PeticomerApplicationModel>.Fail("You must verificate email!", 400, true);
         }
         
-        return Response<PeticomerApplicationModel>.Fail("You have already approved.", 400, true);
+        var newApplication = _mapper.Map<PeticomerApplication>(peticomerApplicationModel);
+
+        await _peticomerApplicationRepository.AddAsync(newApplication);
+
+        await _unitOfWork.CommitAsync();
+
+        var newModel = _mapper.Map<PeticomerApplicationModel>(newApplication);
+            
+        _emailService.SendEmail(_configuration[Settings.SenderEmail], peticomerApplicationModel.Email, "Başvuru Hakkında", 
+            "Başvurunuz alınmıştır. En kısa süre içerisinde başvurunuza geri dönüş yapılacaktır.");
+
+        return Response<PeticomerApplicationModel>.Success(newModel, 204);
     }
 
     /// <summary>
@@ -118,6 +129,7 @@ public class PeticomerApplicationService : GenericService<PeticomerApplication, 
     public async Task<Response<NoDataModel>> ApprovePeticomerApplicationByUserId(string userId)
     {
         var peticomerApplication = _peticomerApplicationRepository.Where(p => p.UserId == userId).FirstOrDefault();
+        var user = await _userManager.FindByIdAsync(userId);
 
         if (peticomerApplication != null) 
         {
@@ -127,7 +139,8 @@ public class PeticomerApplicationService : GenericService<PeticomerApplication, 
 
             _emailService.SendEmail(_configuration[Settings.SenderEmail], peticomerApplication.Email, "Başvuru Onayı Hakkında",
                 "Peticomer başvurunuz onaylanmıştır.\n Başvuru yaptığınız hesabınız üzerinden işlem yapabilirsiniz.");
-            
+
+            await _userManager.AddToRoleAsync(user, Roles.Peticomer);
             return Response<NoDataModel>.Success("Peticomer application was successfully approved." ,200);
         }
         

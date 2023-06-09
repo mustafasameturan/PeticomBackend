@@ -16,7 +16,10 @@ public class PeticomerBadgeConfiguration : IEntityTypeConfiguration<PeticomerBad
         builder.Property(p => p.CarDistance).IsRequired();
         builder.Property(p => p.Pet).IsRequired();
         builder.Property(p => p.Garden).IsRequired();
-
+        builder.HasOne(p => p.UserApp)
+            .WithOne(u => u.PeticomerBadge)
+            .HasForeignKey<PeticomerBadge>(p => p.UserId)
+            .IsRequired();
         builder.ToTable("PeticomerBadges");
     }
 }

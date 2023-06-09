@@ -7,4 +7,5 @@ namespace Peticom.Core.Services;
 public interface IStarService : IGenericService<Star, StarModel>
 {
     public Task<Response<List<StarModel>>> GetStarsByAdIdAsync(Guid adId);
+    public Task<Response<double>> CalculateStarAverageByAdIdAsync(Guid adId);
 }

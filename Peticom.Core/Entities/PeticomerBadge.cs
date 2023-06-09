@@ -8,4 +8,5 @@ public class PeticomerBadge : BaseEntity
     public int CarDistance { get; set; }
     public bool Pet { get; set; }
     public bool Garden { get; set; }
+    public UserApp UserApp { get; set; }
 }

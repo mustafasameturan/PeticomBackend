@@ -7,7 +7,7 @@ public enum Gender
 {
     [Display(Name = "Erkek")]
     Male = 0,
-    [Display(Name = "Kadın")]
+    [Display(Name = "Dişi")]
     Female,
     [Display(Name = "Belirtilmedi")]
     Unknown

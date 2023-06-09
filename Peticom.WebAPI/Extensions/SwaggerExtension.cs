@@ -5,7 +5,7 @@ namespace Peticom.WebAPI.Extensions;
 
 public static class SwaggerExtension
 {
-    public static void UseSwaggerAuthorization(this IServiceCollection services)
+    public static void AddSwaggerAuthorization(this IServiceCollection services)
     {
         services.AddSwaggerGen(c =>
         {

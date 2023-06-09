@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Peticom.Core.Models.PetDisease;
 using Peticom.Core.Services;
 
 namespace Peticom.WebAPI.Controllers;
@@ -22,5 +23,11 @@ public class PetDiseasesController : BaseController
     public async Task<IActionResult> GetAll()
     {
         return CreateActionResult(await _petDiseaseService.GetAllAsync());
+    }
+
+    [HttpPost("add")]
+    public async Task<IActionResult> AddPetDisease(PetDiseaseModel diseaseModel)
+    {
+        return CreateActionResult(await _petDiseaseService.AddAsync(diseaseModel));
     }
 }

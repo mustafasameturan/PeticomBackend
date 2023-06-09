@@ -38,4 +38,25 @@ public class StarService : GenericService<Star, StarModel>, IStarService
 
         return Response<List<StarModel>>.Success(mappedStars, 200);
     }
+    
+    /// <summary>
+    /// This method calculate average star by ad id.
+    /// </summary>
+    /// <param name="adId"></param>
+    /// <returns></returns>
+    public async Task<Response<double>> CalculateStarAverageByAdIdAsync(Guid adId)
+    {
+        var stars = await _starRepository.GetStarsByAdIdAsync(adId);
+        double total = 0.0;
+        double result = 0.0;
+        
+        foreach (var star in stars)
+        {
+            total += star.StarCount;
+        }
+
+        result = total / stars.Count;
+            
+        return Response<double>.Success(result, 200);
+    }
 }

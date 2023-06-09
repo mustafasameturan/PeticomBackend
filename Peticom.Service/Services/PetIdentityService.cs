@@ -85,4 +85,17 @@ public class PetIdentityService : GenericService<PetIdentity, PetIdentityModel>,
         
         return Response<List<PetFullIdentityModel>>.Success(petFullIdentitiesModel, 200);
     }
+    
+    /// <summary>
+    /// This method get pet identities for select list.
+    /// </summary>
+    /// <returns></returns>
+    public async Task<Response<List<PetIdentitySelectListModel>>> GetPetIdentitySelectListAsync(string userId)
+    {
+        var petIdentities = await _petIdentityRepository.GetPetIdentityByUserIdAsync(userId);
+
+        var mappedPetIdentities = _mapper.Map<List<PetIdentitySelectListModel>>(petIdentities);
+
+        return Response<List<PetIdentitySelectListModel>>.Success(mappedPetIdentities, 200);
+    }
 }

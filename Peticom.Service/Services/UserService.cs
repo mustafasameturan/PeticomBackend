@@ -12,6 +12,7 @@ using Peticom.Core.Models.Token;
 using Peticom.Core.Models.User;
 using Peticom.Core.Responses;
 using Peticom.Core.Services;
+using Peticom.Service.Constants;
 
 namespace Peticom.Service.Services;
 
@@ -44,14 +45,15 @@ public class UserService : IUserService
 
         var user = await _userManager.FindByEmailAsync(loginModel.Email);
 
-        if (user == null) return Response<TokenModel>.Fail("User not found", 404, true);
+        if (user == null) return Response<TokenModel>.Fail(Messages.USER_NOT_FOUND, 404, true);
 
         if (!await _userManager.CheckPasswordAsync(user, loginModel.Password))
         {
-            return Response<TokenModel>.Fail("Password is wrong", 400, true);
+            return Response<TokenModel>.Fail(Messages.PASSWORD_WRONG, 400, true);
         }
         
-        var token = _tokenService.CreateToken(user);
+        var userRoles = await _userManager.GetRolesAsync(user);
+        var token = _tokenService.CreateToken(user, userRoles);
 
         return Response<TokenModel>.Success(token, 200);
     }
@@ -77,11 +79,48 @@ public class UserService : IUserService
         {
             var errors = result.Errors.Select(x => x.Description).ToList();
             
-            
             return Response<UserAppModel>.Fail(new ErrorModel(errors), 400);
         }
-
+        
+        await _userManager.AddToRoleAsync(user, Roles.User);
         return Response<UserAppModel>.Success(_mapper.Map<UserAppModel>(user), 200);
+    }
+
+    /// <summary>
+    /// This method used for update password.
+    /// </summary>
+    /// <param name="updatePasswordModel"></param>
+    /// <returns></returns>
+    public async Task<Response<UpdatePasswordModel>> UpdatePasswordAsync(UpdatePasswordModel updatePasswordModel)
+    {
+        var user = await _userManager.FindByIdAsync(updatePasswordModel.UserId);
+        
+        if (user is null)
+        {
+            return Response<UpdatePasswordModel>.Fail(Messages.USER_NOT_FOUND, 404, true);
+        }
+
+        var signInResult = await _userManager.CheckPasswordAsync(user, updatePasswordModel.CurrentPassword);
+
+        if (!signInResult)
+        {
+            return Response<UpdatePasswordModel>.Fail(Messages.CURRENT_PASSWORD_WRONG, 400, true);
+        }
+
+        if (updatePasswordModel.NewPassword != updatePasswordModel.NewPasswordAgain)
+        {
+            return Response<UpdatePasswordModel>.Fail(Messages.PASSWORDS_NOT_MATCH, 400, true);
+        }
+
+        var resetToken = await _userManager.GeneratePasswordResetTokenAsync(user);
+        var result = await _userManager.ResetPasswordAsync(user, resetToken, updatePasswordModel.NewPassword);
+
+        if (!result.Succeeded)
+        {
+            return Response<UpdatePasswordModel>.Fail(Messages.PASSWORD_UPDATE_ERROR, 400, true);
+        }
+
+        return Response<UpdatePasswordModel>.Success(200);
     }
 
     /// <summary>

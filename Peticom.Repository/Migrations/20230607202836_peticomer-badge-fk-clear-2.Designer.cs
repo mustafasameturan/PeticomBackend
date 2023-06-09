@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Peticom.Repository;
 
@@ -11,9 +12,10 @@ using Peticom.Repository;
 namespace Peticom.Repository.Migrations
 {
     [DbContext(typeof(PeticomDbContext))]
-    partial class PeticomDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230607202836_peticomer-badge-fk-clear-2")]
+    partial class peticomerbadgefkclear2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -183,11 +185,9 @@ namespace Peticom.Repository.Migrations
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Ads");
                 });
@@ -282,9 +282,6 @@ namespace Peticom.Repository.Migrations
                     b.Property<DateTime>("LastInsDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("PetLitter")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -299,11 +296,9 @@ namespace Peticom.Repository.Migrations
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("PetIdentities", (string)null);
                 });
@@ -385,12 +380,9 @@ namespace Peticom.Repository.Migrations
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
 
                     b.ToTable("PeticomerBadges", (string)null);
                 });
@@ -653,17 +645,6 @@ namespace Peticom.Repository.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Peticom.Core.Entities.Ad", b =>
-                {
-                    b.HasOne("Peticom.Core.Entities.UserApp", "UserApp")
-                        .WithMany("Ads")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("UserApp");
-                });
-
             modelBuilder.Entity("Peticom.Core.Entities.PetDisease", b =>
                 {
                     b.HasOne("Peticom.Core.Entities.PetIdentity", "PetIdentity")
@@ -673,28 +654,6 @@ namespace Peticom.Repository.Migrations
                         .IsRequired();
 
                     b.Navigation("PetIdentity");
-                });
-
-            modelBuilder.Entity("Peticom.Core.Entities.PetIdentity", b =>
-                {
-                    b.HasOne("Peticom.Core.Entities.UserApp", "UserApp")
-                        .WithMany("PetIdentities")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("UserApp");
-                });
-
-            modelBuilder.Entity("Peticom.Core.Entities.PeticomerBadge", b =>
-                {
-                    b.HasOne("Peticom.Core.Entities.UserApp", "UserApp")
-                        .WithOne("PeticomerBadge")
-                        .HasForeignKey("Peticom.Core.Entities.PeticomerBadge", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("UserApp");
                 });
 
             modelBuilder.Entity("Peticom.Core.Entities.PetVaccine", b =>
@@ -745,16 +704,6 @@ namespace Peticom.Repository.Migrations
                     b.Navigation("PetDiseases");
 
                     b.Navigation("PetVaccines");
-                });
-
-            modelBuilder.Entity("Peticom.Core.Entities.UserApp", b =>
-                {
-                    b.Navigation("Ads");
-
-                    b.Navigation("PetIdentities");
-
-                    b.Navigation("PeticomerBadge")
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

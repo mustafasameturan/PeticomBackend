@@ -14,5 +14,6 @@ public class AdConfiguration : IEntityTypeConfiguration<Ad>
         builder.Property(p => p.About).IsRequired().HasMaxLength(500);
         builder.Property(p => p.Slogan).IsRequired().HasMaxLength(100);
         builder.Property(p => p.Price).IsRequired().HasColumnType("decimal(18,2)");
+
     }
 }
