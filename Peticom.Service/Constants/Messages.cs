@@ -4,7 +4,7 @@ public static class Messages
 {
     //Common
     public static string USER_NOT_FOUND = "Sisteme kayıtlı kullanıcı bulunamadı!";
-    
+
     //Register Errors
     public static string DUPLICATE_USER_NAME = "Bu kullanıcı adı başka bir kullanıcı tarafından kullanılmaktadır!";
     public static string DUPLICATE_EMAİL = "Bu e-posta başka bir kullanıcı tarafından kullanılmaktadır!";
@@ -18,6 +18,8 @@ public static class Messages
     public static string CURRENT_PASSWORD_WRONG = "Geçerli şifreniz hatalı!";
     public static string PASSWORDS_NOT_MATCH = "Girdiğiniz şifreler uyuşmamaktadır!";
     public static string PASSWORD_UPDATE_ERROR = "Şifre güncelleme işlemi sırasında bir hata oluştu!";
-    public static string PASSWORD_UPDATE_SUCCESS = "Şifre güncelleme işlemi başarıyla tamamlandı!";
+    
+    //Reset Password Errors
+    public static string RESET_PASSWORD_WRONG = "Doğrulama kodunuz hatalı!";
 
 }

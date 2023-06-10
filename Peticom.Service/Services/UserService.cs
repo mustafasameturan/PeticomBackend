@@ -124,6 +124,98 @@ public class UserService : IUserService
     }
 
     /// <summary>
+    /// This method send verification code for reset password
+    /// </summary>
+    /// <param name="email"></param>
+    /// <returns></returns>
+    public async Task<Response<NoDataModel>> SendVerificationCodeForResetPasswordAsync(string email)
+    {
+        var user = await _userManager.FindByEmailAsync(email);
+
+        if (user is null) return Response<NoDataModel>.Fail(Messages.USER_NOT_FOUND, 404, true);
+
+        var resetPasswordVerificationCode = GenerateCode();
+        
+        //update user fields
+        user.ResetPasswordVerificationCode = resetPasswordVerificationCode;
+
+        var result = await _userManager.UpdateAsync(user);
+        //update user fields
+        
+        if (result.Succeeded)
+        {
+            _emailService.SendEmail(
+                _configuration[Settings.SenderEmail], 
+                user.Email, 
+                "Doğrulama Kodu", 
+                "Doğrulama Kodunuz: " + resetPasswordVerificationCode
+            );
+
+            return Response<NoDataModel>.Success("Verification code was sended.", 200);   
+        }
+        
+        var errors = result.Errors.Select(e => e.Description).ToList();
+        return Response<NoDataModel>.Fail(new ErrorModel(errors), 400);
+    }
+
+    /// <summary>
+    /// This method is responsible for verifying reset password code.
+    /// </summary>
+    /// <param name="confirmVerificationCodeModel"></param>
+    /// <returns></returns>
+    public async Task<Response<NoDataModel>> ConfirmVerificationCodeForResetPasswordAsync(ConfirmVerificationCodeResetPasswordModel model)
+    {
+        var user = await _userManager.FindByEmailAsync(model.Email);
+        
+        if (user is null) 
+            return Response<NoDataModel>.Fail(Messages.USER_NOT_FOUND, 404, true);
+
+        if (user.ResetPasswordVerificationCode != model.VerificationCode)
+            return Response<NoDataModel>.Fail(Messages.RESET_PASSWORD_WRONG, 400, true);
+        
+        //update user fields
+        user.ResetPasswordVerificationCode = null;
+        
+        var result = await _userManager.UpdateAsync(user);
+
+        if (!result.Succeeded)
+        {
+            var errors = result.Errors.Select(e => e.Description).ToList();
+            return Response<NoDataModel>.Fail(new ErrorModel(errors), 400);
+        } 
+        
+        return Response<NoDataModel>.Success(200);
+    }
+
+    /// <summary>
+    /// This method is responsible for reset password.
+    /// </summary>
+    /// <param name="resetPasswordModel"></param>
+    /// <returns></returns>
+    public async Task<Response<NoDataModel>> ResetPasswordAsync(ResetPasswordModel resetPasswordModel)
+    {
+        var user = await _userManager.FindByEmailAsync(resetPasswordModel.Email);
+        
+        if (user is null) 
+            return Response<NoDataModel>.Fail(Messages.USER_NOT_FOUND, 404, true);
+        
+        if (resetPasswordModel.NewPasswordAgain != resetPasswordModel.NewPasswordAgain)
+        {
+            return Response<NoDataModel>.Fail(Messages.PASSWORDS_NOT_MATCH, 400, true);
+        }
+
+        var resetToken = await _userManager.GeneratePasswordResetTokenAsync(user);
+        var result = await _userManager.ResetPasswordAsync(user, resetToken, resetPasswordModel.NewPassword);
+
+        if (!result.Succeeded)
+        {
+            return Response<NoDataModel>.Fail(Messages.PASSWORD_UPDATE_ERROR, 400, true);
+        }
+
+        return Response<NoDataModel>.Success(200);
+    }
+
+    /// <summary>
     /// This code send verification code to user.
     /// </summary>
     /// <param name="userId"></param>
