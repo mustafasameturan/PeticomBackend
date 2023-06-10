@@ -47,6 +47,24 @@ public class UsersController : BaseController
         return CreateActionResult(await _userService.UpdatePasswordAsync(updatePasswordModel));
     }
     
+    [HttpPost("sendVerificationCodeForResetPassword")]
+    public async Task<IActionResult> SendVerficaitionCodeForResetPassword([FromBody] string email)
+    {
+        return CreateActionResult(await _userService.SendVerificationCodeForResetPasswordAsync(email));
+    }
+
+    [HttpPost("confirmVerificationCodeForResetPassword")]
+    public async Task<IActionResult> ConfirmVerficaitionCodeForResetPassword(ConfirmVerificationCodeResetPasswordModel model)
+    {
+        return CreateActionResult(await _userService.ConfirmVerificationCodeForResetPasswordAsync(model));
+    }
+
+    [HttpPost("resetPassword")]
+    public async Task<IActionResult> ResetPasswordAsync(ResetPasswordModel model)
+    {
+        return CreateActionResult(await _userService.ResetPasswordAsync(model));
+    }
+    
     [HttpPost("sendVerificationCode/{userId}")]
     public async Task<IActionResult> SendVerificationCode(string userId)
     {
