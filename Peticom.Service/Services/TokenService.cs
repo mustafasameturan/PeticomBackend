@@ -60,6 +60,7 @@ public class TokenService : ITokenService
             new Claim("UserId", userApp.Id),
             new Claim("UserEmail", userApp.Email),
             new Claim("UserName", userApp.UserName),
+            new Claim("UserFullName", userApp.FullName),
             new Claim("IsUserVerificated", userApp.EmailConfirmed.ToString()),
             new Claim("UserRoles", string.Join(",", userRoles))
         };

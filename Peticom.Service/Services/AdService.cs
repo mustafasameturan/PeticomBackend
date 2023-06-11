@@ -24,15 +24,37 @@ public class AdService : GenericService<Ad, AdModel>, IAdService
     {
         // Öncelikle gerekli verileri alır
         var ads = await _adRepository.GetAll().ToListAsync();
+        int adsCount = ads.Count;
 
         // Arama terimine göre filtreleme yapar (büyük küçük harf duyarsız)
         if (!string.IsNullOrEmpty(requestModel.Search))
         {
             ads = ads.Where(ad => ad.Slogan.IndexOf(requestModel.Search, StringComparison.OrdinalIgnoreCase) >= 0).ToList();
         }
+
+        if (requestModel.CityId != -1)
+        {
+            ads = ads.Where(ad => ad.CityId == requestModel.CityId).ToList();
+        }
+
+        if (requestModel.Order != -1)
+        {
+            switch (requestModel.Order)
+            {
+                case 1:
+                    ads = ads.OrderBy(a => a.Price).ToList();
+                    break;
+                case 2:
+                    ads = ads.OrderByDescending(a => a.Price).ToList();
+                    break;
+                case 3:
+                    ads = ads.OrderBy(a => a.CreatedDate).ToList();
+                    break;
+            }
+        }
         
         // Toplam kayıt sayısını alır
-        var recordsTotal = ads.Count;
+        var recordsTotal = adsCount;
 
         // Sayfalama işlemini gerçekleştirir
         ads = ads.Skip(requestModel.Start).Take(requestModel.Limit).ToList();
@@ -41,9 +63,11 @@ public class AdService : GenericService<Ad, AdModel>, IAdService
         {   
             Id = a.Id,
             UserId = a.UserId,
+            CityId = a.CityId,
             Slogan = a.Slogan,
             About = a.About,
-            Price = a.Price
+            Price = a.Price,
+            CreatedDate = a.CreatedDate
         }).ToList();
 
         // AdFilterResponseModel'i doldurur

@@ -22,6 +22,8 @@ public interface IUserService
 
     Task<Response<List<UserAppModel>>> GetAllUsersAsync();
 
+    Task<Response<List<UserAppModel>>> GetUsersByRoleAsync(string role);
+
     Task<Response<UserAppModel>> GetUserByIdAsync(string userId);
 
     Task<Response<UserAppUpdateModel>> UpdateUserAsync(UserAppUpdateModel userAppUpdateModel);
