@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Peticom.Repository;
 
@@ -11,9 +12,10 @@ using Peticom.Repository;
 namespace Peticom.Repository.Migrations
 {
     [DbContext(typeof(PeticomDbContext))]
-    partial class PeticomDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230610213948_city")]
+    partial class city
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -167,8 +169,8 @@ namespace Peticom.Repository.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<int>("CityId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("CityId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -199,19 +201,28 @@ namespace Peticom.Repository.Migrations
 
             modelBuilder.Entity("Peticom.Core.Entities.City", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("uniqueidentifier")
+                        .HasDefaultValueSql("NEWID()");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Value")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Cities", (string)null);
+                    b.ToTable("Cities");
                 });
 
             modelBuilder.Entity("Peticom.Core.Entities.Comment", b =>
@@ -556,9 +567,6 @@ namespace Peticom.Repository.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("BirthDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("City")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
@@ -577,9 +585,6 @@ namespace Peticom.Repository.Migrations
                     b.Property<string>("FullName")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("ImageUrl")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -687,7 +692,7 @@ namespace Peticom.Repository.Migrations
             modelBuilder.Entity("Peticom.Core.Entities.Ad", b =>
                 {
                     b.HasOne("Peticom.Core.Entities.City", "City")
-                        .WithMany()
+                        .WithMany("Ads")
                         .HasForeignKey("CityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -772,6 +777,11 @@ namespace Peticom.Repository.Migrations
             modelBuilder.Entity("Peticom.Core.Entities.Ad", b =>
                 {
                     b.Navigation("Stars");
+                });
+
+            modelBuilder.Entity("Peticom.Core.Entities.City", b =>
+                {
+                    b.Navigation("Ads");
                 });
 
             modelBuilder.Entity("Peticom.Core.Entities.Comment", b =>

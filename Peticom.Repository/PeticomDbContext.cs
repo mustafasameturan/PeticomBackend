@@ -23,6 +23,7 @@ public class PeticomDbContext : IdentityDbContext<UserApp, IdentityRole, string>
     public DbSet<SubComment> SubComments { get; set; }
     public DbSet<Star> Stars { get; set; }
     public DbSet<PeticomerApplication> PeticomerApplications { get; set; }
+    public DbSet<City> Cities { get; set; }
     
     /// <summary>
     /// This method is used to set the CreatedDate and UpdatedDate properties of the entities. For sync operations.

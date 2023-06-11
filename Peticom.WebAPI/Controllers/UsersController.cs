@@ -23,6 +23,12 @@ public class UsersController : BaseController
         return CreateActionResult(await _userService.GetAllUsersAsync());
     }
     
+    [HttpGet("getUsersByRole")]
+    public async Task<IActionResult> GetUsersByRole(string role)
+    {
+        return CreateActionResult(await _userService.GetUsersByRoleAsync(role));
+    }
+    
     [HttpGet("getByUserId")]
     public async Task<IActionResult> GetByUserId(string userId)
     {

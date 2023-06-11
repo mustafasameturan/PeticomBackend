@@ -305,6 +305,18 @@ public class UserService : IUserService
     }
 
     /// <summary>
+    /// This method is responsible for get users by role.
+    /// </summary>
+    /// <param name="role"></param>
+    /// <returns></returns>
+    public async Task<Response<List<UserAppModel>>> GetUsersByRoleAsync(string role)
+    {
+        var users = await _userManager.GetUsersInRoleAsync(role);
+        
+        return Response<List<UserAppModel>>.Success(_mapper.Map<List<UserAppModel>>(users), 200);
+    }
+
+    /// <summary>
     /// This method get user by id async.
     /// </summary>
     /// <param name="userId"></param>
@@ -338,7 +350,8 @@ public class UserService : IUserService
         //Update user fields
         user.FullName = userAppUpdateModel.FullName;
         user.City = userAppUpdateModel.City;
-        user.UserName = userAppUpdateModel.UserName;
+        user.PhoneNumber = userAppUpdateModel.PhoneNumber;
+        user.BirthDate = userAppUpdateModel.BirthDate;
         //Update user fields
 
         var result = await _userManager.UpdateAsync(user);

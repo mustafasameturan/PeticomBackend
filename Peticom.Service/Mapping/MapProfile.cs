@@ -1,6 +1,7 @@
 using AutoMapper;
 using Peticom.Core.Entities;
 using Peticom.Core.Models;
+using Peticom.Core.Models.City;
 using Peticom.Core.Models.Comment;
 using Peticom.Core.Models.PetDisease;
 using Peticom.Core.Models.PeticomerApplication;
@@ -40,6 +41,10 @@ public class MapProfile : Profile
         CreateMap<PeticomerApplication, PeticomerApplicationModel>().ReverseMap();
         CreateMap<PeticomerApplication, PeticomerApplicationWithStatusModel>().ReverseMap();
 
-        CreateMap<UserApp, UserAppModel>().ReverseMap();
+        CreateMap<UserApp, UserAppModel>()
+            .ReverseMap();
+            //.ForMember(dest => dest.BirthDate, opt => opt.MapFrom(src => src.BirthDate ?? DateTime.MinValue));
+        
+        CreateMap<City, CityModel>().ReverseMap();
     }
 }
