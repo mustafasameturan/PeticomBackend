@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Peticom.Core.Models;
 using Peticom.Core.Services;
 
 namespace Peticom.WebAPI.Controllers;
@@ -34,5 +35,11 @@ public class PetIdentitiesController : BaseController
     public async Task<IActionResult> GetFullIdentityByUserId(string userId)
     {
         return CreateActionResult(await _petIdentityService.GetPetFullIdentityByUserIdAsync(userId));
+    }
+    
+    [HttpPost("add")]
+    public async Task<IActionResult> Add([FromBody] PetIdentityModel model)
+    {
+        return CreateActionResult(await _petIdentityService.AddAsync(model));
     }
 }

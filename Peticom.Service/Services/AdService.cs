@@ -6,6 +6,7 @@ using Peticom.Core.Repositories;
 using Peticom.Core.Responses;
 using Peticom.Core.Services;
 using Peticom.Core.UnitOfWorks;
+using Peticom.Service.Constants;
 
 namespace Peticom.Service.Services;
 
@@ -76,4 +77,20 @@ public class AdService : GenericService<Ad, AdModel>, IAdService
         return Response<AdFilterResponseModel>.Success(responseModel, 200);
     }
 
+    /// <summary>
+    /// This method get ads by user id.
+    /// </summary>
+    /// <param name="userId"></param>
+    /// <returns></returns>
+    public async Task<Response<List<AdModel>>> GetAdsByUserIdAsync(string userId)
+    {
+        var ads = await _adRepository.Where(a => a.UserId == userId).ToListAsync();
+
+        if (ads.Count == 0)
+        {
+            return Response<List<AdModel>>.Fail(Messages.AD_NOT_FOUND, 404, true);
+        }
+        
+        return Response<List<AdModel>>.Success(_mapper.Map<List<AdModel>>(ads), 200);
+    }
 }

@@ -21,5 +21,8 @@ public static class Messages
     
     //Reset Password Errors
     public static string RESET_PASSWORD_WRONG = "Doğrulama kodunuz hatalı!";
+    
+    //Ad Errors
+    public static string AD_NOT_FOUND = "İlan bulunamadı!";
 
 }

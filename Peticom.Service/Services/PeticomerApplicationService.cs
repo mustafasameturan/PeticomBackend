@@ -118,7 +118,7 @@ public class PeticomerApplicationService : GenericService<PeticomerApplication, 
         _emailService.SendEmail(_configuration[Settings.SenderEmail], peticomerApplicationModel.Email, "Başvuru Hakkında", 
             "Başvurunuz alınmıştır. En kısa süre içerisinde başvurunuza geri dönüş yapılacaktır.");
 
-        return Response<PeticomerApplicationModel>.Success(newModel, 204);
+        return Response<PeticomerApplicationModel>.Success(newModel, 200);
     }
 
     /// <summary>

@@ -1,3 +1,5 @@
+using Peticom.Core.Enums;
+
 namespace Peticom.Core.Models;
 
 public class AdModel
@@ -8,5 +10,6 @@ public class AdModel
     public string Slogan { get; set; }
     public string About { get; set; }
     public double Price { get; set; }
+    public Pet? PetType { get; set; }
     public DateTime CreatedDate { get; set; }
 }

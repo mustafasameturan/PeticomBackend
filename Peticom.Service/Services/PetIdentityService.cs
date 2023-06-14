@@ -69,6 +69,8 @@ public class PetIdentityService : GenericService<PetIdentity, PetIdentityModel>,
             {
                 PetId = identity.Id,
                 UserId = identity.UserId,
+                Name = identity.Name,
+                PetBreed = identity.PetBreed,
                 Type = identity.Type,
                 Color = identity.Color,
                 BirthDate = identity.BirthDate,

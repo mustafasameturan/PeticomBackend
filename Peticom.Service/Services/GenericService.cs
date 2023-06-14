@@ -58,7 +58,7 @@ public class GenericService<TEntity, TModel> : IGenericService<TEntity, TModel> 
 
         var newModel = _mapper.Map<TModel>(newEntity);
 
-        return Response<TModel>.Success(newModel, 204);
+        return Response<TModel>.Success(newModel, 200);
     }
 
     public async Task<Response<NoDataModel>> RemoveAsync(Guid id)
