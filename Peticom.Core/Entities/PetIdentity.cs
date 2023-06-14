@@ -7,7 +7,8 @@ public class PetIdentity : BaseEntity
 {
     public string UserId { get; set; }
     public string? Name { get; set; }
-    public string Type { get; set; }
+    public string? PetBreed { get; set; }
+    public Pet Type { get; set; }
     public string Color { get; set; }
     public DateTime? BirthDate { get; set; }
     public Gender Gender { get; set; }

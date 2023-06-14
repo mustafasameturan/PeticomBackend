@@ -12,6 +12,7 @@ public class BaseController : ControllerBase
     [NonAction]
     public IActionResult CreateActionResult<T>(Response<T> response)
     {
+        
         if (response.StatusCode == 204)
         {
             return new ObjectResult(null)
@@ -19,7 +20,7 @@ public class BaseController : ControllerBase
                 StatusCode = response.StatusCode
             };
         }
-
+        
         return new ObjectResult(response)
         {
             StatusCode = response.StatusCode

@@ -352,6 +352,7 @@ public class UserService : IUserService
         user.City = userAppUpdateModel.City;
         user.PhoneNumber = userAppUpdateModel.PhoneNumber;
         user.BirthDate = userAppUpdateModel.BirthDate;
+        user.ImageUrl = userAppUpdateModel.ImageUrl;
         //Update user fields
 
         var result = await _userManager.UpdateAsync(user);

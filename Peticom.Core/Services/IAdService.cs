@@ -7,4 +7,5 @@ namespace Peticom.Core.Services;
 public interface IAdService : IGenericService<Ad, AdModel>
 {
     public Task<Response<AdFilterResponseModel>> GetAdsByFilterAsync(AdFilterRequestModel requestModel);
+    public Task<Response<List<AdModel>>> GetAdsByUserIdAsync(string userId);
 }
