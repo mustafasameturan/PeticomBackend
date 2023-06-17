@@ -14,4 +14,5 @@ public class Ad : BaseEntity
     public UserApp UserApp { get; set; }
     public City City{ get; set; }
     public ICollection<Star> Stars { get; set; }
+    public ICollection<Ad> Ads { get; set; }
 }

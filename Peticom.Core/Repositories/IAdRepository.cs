@@ -4,5 +4,5 @@ namespace Peticom.Core.Repositories;
 
 public interface IAdRepository : IGenericRepository<Ad>
 {
-    
+    public Task<List<Ad>> GetAllWithStarsAsync();
 }

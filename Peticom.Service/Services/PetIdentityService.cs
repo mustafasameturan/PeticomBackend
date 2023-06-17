@@ -100,4 +100,20 @@ public class PetIdentityService : GenericService<PetIdentity, PetIdentityModel>,
 
         return Response<List<PetIdentitySelectListModel>>.Success(mappedPetIdentities, 200);
     }
+
+    /// <summary>
+    /// This method return peticomer pet statusİ
+    /// </summary>
+    /// <returns></returns>
+    public async Task<Response<bool>> IsPeticomerHavePetAsync(string userId)
+    {
+        var petIdentity = await _petIdentityRepository.Where(p => p.UserId == userId).ToListAsync();
+
+        if (petIdentity.Count == 0)
+        {
+            return Response<bool>.Success(false, 200);
+        }
+        
+        return Response<bool>.Success(true, 200);
+    }
 }

@@ -14,5 +14,5 @@ public class UserApp : IdentityUser
     public PeticomerBadge PeticomerBadge { get; set; }
     public ICollection<PetIdentity> PetIdentities { get; set; }
     public ICollection<Ad> Ads { get; set; }
-
+    public ICollection<Reservation> Reservations { get; set; }
 }

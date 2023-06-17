@@ -13,7 +13,7 @@ public class PeticomerBadgeConfiguration : IEntityTypeConfiguration<PeticomerBad
         builder.Property(p => p.UserId).IsRequired();
         builder.Property(p => p.Cigaret).IsRequired();
         builder.Property(p => p.Car).IsRequired();
-        builder.Property(p => p.CarDistance).IsRequired();
+        builder.Property(p => p.CarDistance);
         builder.Property(p => p.Pet).IsRequired();
         builder.Property(p => p.Garden).IsRequired();
         builder.HasOne(p => p.UserApp)

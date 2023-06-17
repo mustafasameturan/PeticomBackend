@@ -37,6 +37,13 @@ public class PetIdentitiesController : BaseController
         return CreateActionResult(await _petIdentityService.GetPetFullIdentityByUserIdAsync(userId));
     }
     
+       
+    [HttpGet("isPeticomerHavePet")]
+    public async Task<IActionResult> IsPeticomerHavePet(string userId)
+    {
+        return CreateActionResult(await _petIdentityService.IsPeticomerHavePetAsync(userId));
+    }
+    
     [HttpPost("add")]
     public async Task<IActionResult> Add([FromBody] PetIdentityModel model)
     {

@@ -77,21 +77,16 @@ public class GenericService<TEntity, TModel> : IGenericService<TEntity, TModel> 
         return Response<NoDataModel>.Success(200);
     }
 
-    public async Task<Response<NoDataModel>> UpdateAsync(TModel entity, Guid id)
+    public async Task<Response<NoDataModel>> UpdateAsync(TModel entity)
     {
-        var isExistEntity = await _repository.GetByIdAsync(id);
-        
-        if(isExistEntity == null)
-        {
-            return Response<NoDataModel>.Fail("Id not found", 404, true);
-        }
+        //var entity = await _repository.AnyAsync(a => a.Id == entity.Id);
         
         var updatedEntity = _mapper.Map<TEntity>(entity);
 
         _repository.Update(updatedEntity);
-        
+    
         await _unitOfWork.CommitAsync();
 
-        return Response<NoDataModel>.Success(204);
+        return Response<NoDataModel>.Success(200);
     }
 }

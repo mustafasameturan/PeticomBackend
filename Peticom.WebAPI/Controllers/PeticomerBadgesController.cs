@@ -26,10 +26,16 @@ public class PeticomerBadgesController : BaseController
     {
         return CreateActionResult(await _peticomerBadgeService.GetPeticomerBadgeByUserIdAsync(userId));
     }
-
+    
     [HttpPost("add")]
     public async Task<IActionResult> AddPeticomerBadge(PeticomerBadgeModel peticomerBadgeModel)
     {
         return CreateActionResult(await _peticomerBadgeService.AddAsync(peticomerBadgeModel));
+    }
+    
+    [HttpPut("update")]
+    public async Task<IActionResult> UpdatePeticomerBadge(PeticomerBadgeModel peticomerBadgeModel)
+    {
+        return CreateActionResult(await _peticomerBadgeService.UpdateAsync(peticomerBadgeModel));
     }
 }

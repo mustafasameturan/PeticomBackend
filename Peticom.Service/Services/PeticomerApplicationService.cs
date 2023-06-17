@@ -138,7 +138,7 @@ public class PeticomerApplicationService : GenericService<PeticomerApplication, 
             await _unitOfWork.CommitAsync();
 
             _emailService.SendEmail(_configuration[Settings.SenderEmail], peticomerApplication.Email, "Başvuru Onayı Hakkında",
-                "Peticomer başvurunuz onaylanmıştır.\n Başvuru yaptığınız hesabınız üzerinden işlem yapabilirsiniz.");
+                "Peticomer başvurunuz onaylanmıştır.\n Başvuru yaptığınız hesabınız üzerinden işlem yapabilirsiniz. Hesabınızdan çıkış yapıp tekrar giriş yapmanızı rica ederiz!");
 
             await _userManager.AddToRoleAsync(user, Roles.Peticomer);
             return Response<NoDataModel>.Success("Peticomer application was successfully approved." ,200);

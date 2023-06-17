@@ -24,6 +24,7 @@ public class PeticomDbContext : IdentityDbContext<UserApp, IdentityRole, string>
     public DbSet<Star> Stars { get; set; }
     public DbSet<PeticomerApplication> PeticomerApplications { get; set; }
     public DbSet<City> Cities { get; set; }
+    public DbSet<Reservation> Reservations { get; set; }
     
     /// <summary>
     /// This method is used to set the CreatedDate and UpdatedDate properties of the entities. For sync operations.

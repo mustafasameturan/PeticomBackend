@@ -8,6 +8,7 @@ using Peticom.Core.Models.PeticomerApplication;
 using Peticom.Core.Models.PeticomerBadge;
 using Peticom.Core.Models.PeticomerHome;
 using Peticom.Core.Models.PetVaccine;
+using Peticom.Core.Models.Reservation;
 using Peticom.Core.Models.Star;
 using Peticom.Core.Models.SubComment;
 using Peticom.Core.Models.User;
@@ -46,5 +47,7 @@ public class MapProfile : Profile
             //.ForMember(dest => dest.BirthDate, opt => opt.MapFrom(src => src.BirthDate ?? DateTime.MinValue));
         
         CreateMap<City, CityModel>().ReverseMap();
+        
+        CreateMap<Reservation, ReservationModel>().ReverseMap();
     }
 }

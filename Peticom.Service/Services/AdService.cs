@@ -24,7 +24,7 @@ public class AdService : GenericService<Ad, AdModel>, IAdService
     public async Task<Response<AdFilterResponseModel>> GetAdsByFilterAsync(AdFilterRequestModel requestModel)
     {
         // Öncelikle gerekli verileri alır
-        var ads = await _adRepository.GetAll().ToListAsync();
+        var ads = await _adRepository.GetAllWithStarsAsync();
         int adsCount = ads.Count;
 
         // Arama terimine göre filtreleme yapar (büyük küçük harf duyarsız)
@@ -49,9 +49,17 @@ public class AdService : GenericService<Ad, AdModel>, IAdService
                     ads = ads.OrderByDescending(a => a.Price).ToList();
                     break;
                 case 3:
-                    ads = ads.OrderBy(a => a.CreatedDate).ToList();
+                    ads = ads.OrderByDescending(a => a.CreatedDate).ToList();
+                    break;
+                case 4:
+                    ads = ads.OrderByDescending(a => a.Stars.Any() ? a.Stars.Average(s => s.StarCount) : 0).ToList();
                     break;
             }
+        }
+
+        if (requestModel.Type != null)
+        {
+            ads = ads.Where(a => a.PetType == requestModel.Type).ToList();
         }
         
         // Toplam kayıt sayısını alır
@@ -68,6 +76,8 @@ public class AdService : GenericService<Ad, AdModel>, IAdService
             Slogan = a.Slogan,
             About = a.About,
             Price = a.Price,
+            PetType = a.PetType,
+            Stars = a.Stars,
             CreatedDate = a.CreatedDate
         }).ToList();
 

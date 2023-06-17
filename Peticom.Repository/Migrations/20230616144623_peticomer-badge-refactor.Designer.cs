@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Peticom.Repository;
 
@@ -11,9 +12,10 @@ using Peticom.Repository;
 namespace Peticom.Repository.Migrations
 {
     [DbContext(typeof(PeticomDbContext))]
-    partial class PeticomDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230616144623_peticomer-badge-refactor")]
+    partial class peticomerbadgerefactor
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -167,9 +169,6 @@ namespace Peticom.Repository.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<Guid?>("AdId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<int>("CityId")
                         .HasColumnType("int");
 
@@ -195,8 +194,6 @@ namespace Peticom.Repository.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AdId");
 
                     b.HasIndex("CityId");
 
@@ -499,55 +496,6 @@ namespace Peticom.Repository.Migrations
                     b.ToTable("PetVaccines", (string)null);
                 });
 
-            modelBuilder.Entity("Peticom.Core.Entities.Reservation", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("NEWID()");
-
-                    b.Property<Guid>("AdId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("BeginTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("EndTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("PeticomerId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TotalPrice")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UserAppId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AdId");
-
-                    b.HasIndex("UserAppId");
-
-                    b.ToTable("Reservations", (string)null);
-                });
-
             modelBuilder.Entity("Peticom.Core.Entities.Star", b =>
                 {
                     b.Property<Guid>("Id")
@@ -748,10 +696,6 @@ namespace Peticom.Repository.Migrations
 
             modelBuilder.Entity("Peticom.Core.Entities.Ad", b =>
                 {
-                    b.HasOne("Peticom.Core.Entities.Ad", null)
-                        .WithMany("Ads")
-                        .HasForeignKey("AdId");
-
                     b.HasOne("Peticom.Core.Entities.City", "City")
                         .WithMany()
                         .HasForeignKey("CityId")
@@ -813,23 +757,6 @@ namespace Peticom.Repository.Migrations
                     b.Navigation("PetIdentity");
                 });
 
-            modelBuilder.Entity("Peticom.Core.Entities.Reservation", b =>
-                {
-                    b.HasOne("Peticom.Core.Entities.Ad", "Ad")
-                        .WithMany()
-                        .HasForeignKey("AdId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Peticom.Core.Entities.UserApp", "UserApp")
-                        .WithMany("Reservations")
-                        .HasForeignKey("UserAppId");
-
-                    b.Navigation("Ad");
-
-                    b.Navigation("UserApp");
-                });
-
             modelBuilder.Entity("Peticom.Core.Entities.Star", b =>
                 {
                     b.HasOne("Peticom.Core.Entities.Ad", "Ad")
@@ -854,8 +781,6 @@ namespace Peticom.Repository.Migrations
 
             modelBuilder.Entity("Peticom.Core.Entities.Ad", b =>
                 {
-                    b.Navigation("Ads");
-
                     b.Navigation("Stars");
                 });
 
@@ -879,8 +804,6 @@ namespace Peticom.Repository.Migrations
 
                     b.Navigation("PeticomerBadge")
                         .IsRequired();
-
-                    b.Navigation("Reservations");
                 });
 #pragma warning restore 612, 618
         }
